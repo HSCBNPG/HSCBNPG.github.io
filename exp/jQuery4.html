@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>基本过滤选择器</h1>
+    <ul>
+        <li>child1-basic0</li>
+        <li>child2-basic1</li>
+        <li>child3-basic2</li>
+      </ul>
+      <ul>
+        <li>child1-basic3</li>
+        <li>child2-basic4</li>
+        <li>child3-basic5</li>
+      </ul>
+      <ul>
+        <li>child1-basic6</li>
+      </ul>
+    <!-- 点击任意一个按钮，弹出疼 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //查找第一个li
+        $("ul>li:first").css("font-size","24px");
+        //查找最后一个li
+        $('ul>li:last').css("font-size","36px");
+        //查找处于偶数位置的li,ps:jq中的偶数位置是实际位置的奇数，因为jq中计数从0开始
+        $("ul>li:odd").css("color","red");
+        //查找第二个li
+        $("ul>li:eq(1)").css("background-color","blue")
+    </script>
+</body>
+</html>

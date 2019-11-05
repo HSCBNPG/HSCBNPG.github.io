@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+ <head>
+	<meta charset="UTF-8">
+	<title>实现带样式的表单验证</title>
+	<link rel="Stylesheet" href="css/5.css" />
+ </head>
+ <body>
+	<form id="form1">
+		<h2>增加管理员</h2>
+		<table>
+			<tr>
+				<td>姓名：</td>
+        <td>
+					<input name="username"/>
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_info">
+						10个字符以内的字母、数字或下划线的组合
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td>
+					<input type="password" name="pwd"/>
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_info">6位数字</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2">
+          <input type="submit" value="保存"/>
+          <input type="reset" value="重填"/>
+				</td>
+			</tr>				
+	    </table>
+	</form>
+<script>
+//DOM 4步:
+//1. 查找触发事件的元素
+//2. 绑定事件处理函数
+	//3. 查找要修改的元素
+	//4. 修改元素
+var uname=document.getElementsByName("username")[0];//通过name属性查找触发事件的元素，返回的是单一值集合，所以用[0]可以得到目标元素
+var upwd=document.getElementsByName("pwd")[0]
+upwd.onfocus=//两者的获得焦点事件相同，所以可以合并为一个函数
+uname.onfocus=function(){
+    var input=this;//获得当前元素
+    var div=input.parentNode.nextElementSibling.children[0];//查找要修改的元素，当前元素的父元素的下一个兄弟元素的下一个子元素，返回的是集合，所以用[0]取出
+    div.className="";//去掉当前元素的display：none属性，使其显示
+};
+function vali(input,reg){//封装函数，用于失去焦点事件，减少代码量
+    var bool=reg.test(input.value)//用正则表达式验证变量的值是否符合条件
+    var div=input.parentNode.nextElementSibling.children[0];//查找要修改的元素
+    if(bool){//如果格式正确
+        div.className="vali_success"//改变目标元素的className
+    }else{//否则，如果输入不正确
+        div.className="vali_fail"//改变目标元素的className
+    }
+}
+//调用函数，并传参
+uname.onblur=function(){
+    var reg=/^\w{1,10}$/
+    vali(this,reg)
+}
+upwd.onblur=function(){
+    var reg=/^\d{6}$/
+    vali(this,reg)
+}
+</script>
+ </body>
+</html>

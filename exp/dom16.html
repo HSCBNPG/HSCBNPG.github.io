@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+ <head>
+	<meta charset="UTF-8">
+	<title>在当前显示区范围内实现点不到的小方块</title>
+	<style>
+		div{position:fixed;width:100px;height:100px;
+			background-image:url(images/xiaoxin.gif);
+      background-size:100%;
+		}
+	</style>
+	
+ </head>
+ <body>
+	<div id="pop"></div>
+<script>
+//其实开关就是一个bool类型的变量而已
+var canMove=false;//开始时，默认关着开关
+//1. 当鼠标按键在图片上按下时，打开开关
+//同时获得鼠标相对于当前div左上角的位置，供每次移动时，换算图片位置之用。
+var offsetX=0, offsetY=0;
+pop.onmousedown=function(e){
+    canmove=true;
+    offsetX=e.offsetX;
+    offsetY=e.offsetY
+}
+//2. 当鼠标在文档显示区内移动时，只有开关开着的时候，才自动获得鼠标的位置，并计算出图片的位置
+window.onmousemove=function(e){
+    if(canmove){
+        var x=e.clientX;
+        var y=e.clientY;
+        var left=x-offsetX;//图片左上角left坐标
+        var top=y-offsetY;//图片左上角top坐标
+        if(left<0){left=0}
+        else if(left>innerWidth-100){
+            left=innerWidth-100
+        }
+        if(top<0){top=0}
+        else if(top>innerHeight-100){
+            top=innerHeight-100
+        }
+        pop.style.cssTxt=`left:${left} ,top:${top}`
+    }
+}
+//当鼠标移出窗口时，关闭开关
+window.onmouseout=function(){
+	canMove=false;
+}
+//3. 当鼠标按键从图片上抬起时，关闭开关
+pop.onmouseup=function(){
+	canMove=false;
+}
+</script>
+ </body>
+</html>

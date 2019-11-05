@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       /* 将location.search，转为对象: 
+            地址栏: http://localhost:3000/register?uname=dingding&upwd=123456&favs=running&favs=swimming&favs=basketball
+            location.search会获得一个字符串: 
+            以下是作业的代码: 
+            var str=
+            "?uname=dingding&upwd=123456&favs=running&favs=swimming&favs=basketball"
+            定义一个函数function search2Obj(strSearch){
+                返回一个对象
+            }
+            var obj=search2Obj(str);
+            console.log(obj);
+            obj:{
+                uname:"dingding",
+                upwd:"123456",
+                favs:[ "running", "swimming", "basketball" ]
+            }
+            console.log(obj.uname)
+            要求: search字符串中的变量名不确定，变量个数不确定，都不能在程序中写死。只能通过遍历获得。*/
+            var str=
+            "?uname=dingding&upwd=123456&favs=running&favs=swimming&favs=basketball"
+            function change(str){//自定义函数，传参，形参str
+                var str=str.slice(1);//截取字符串
+                var arr=str.split("&");//拆分字符串为数组
+                var obj={};//声明空对象
+                for(var ar of arr){//遍历数组
+                    var [pro,val]=ar.split("=");//数组结构，分别用pro和val接住ar拆分后形成的数组
+                    if(obj[pro]==undefined){//如果对象obj中还没有该属性
+                        obj[pro]=val;//强行为对象添加属性名和属性值
+                    }else{//否则，如果对象中已经有该属性名和值
+                        obj[pro]=[].concat(obj[pro],val)//利用concat打散原数组，再和新的val拼接起来，赋值到新的空数组中，得到一个新的拼接后的数组
+                    }
+                }
+                return obj;//返回该对象
+            }
+            console.log(change(str))//调用函数
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>1. 实现伸缩二级菜单</title>
+<meta charset="utf-8" />
+<!-- <link rel="stylesheet" href="css/1.css" /> -->
+<style>
+    ul{
+        list-style:none;
+    }
+    .tree>li ul{
+        display: none;
+        overflow: hidden;
+        transition: all .5s linear
+    }
+    .tree>li span{
+        background: url('images/add.png') no-repeat center left;
+        padding-left:20px;
+        cursor:pointer
+    }
+    .tree>li .open{
+        background: url('images/minus.png') no-repeat center left;
+        padding-left:20px
+    }
+    .tree>li .open+ul{
+        display:block
+    }
+</style>
+</head>
+<body>
+	<ul class="tree">
+		<li>
+			<span class="open">考勤管理</span>
+			<ul>
+				<li>日常考勤</li>
+				<li>请假申请</li>
+				<li>加班/出差</li>
+			</ul>
+		</li>
+		<li><span>信息中心</span>
+			<ul>
+				<li>通知公告</li>
+				<li>公司新闻</li>
+				<li>规章制度</li>
+			</ul>
+		</li>
+		<li><span>协同办公</span>
+			<ul>
+				<li>公文流转</li>
+				<li>文件中心</li>
+				<li>内部邮件</li>
+				<li>即时通信</li>
+				<li>短信提醒</li>
+			</ul>
+		</li>
+	</ul>
+<script>
+//DOM 4步:
+//1. 查找触发事件的元素
+//2. 绑定事件处理函数
+	//3. 查找要修改的元素
+	//4. 修改元素
+//1. 查找触发事件的元素： 
+//因为多个子元素span，都要绑定单机事件，所以应该用事件委托减少监听对象的个数
+		//事件委托，把事件绑定在父元素上，减少监听次数
+    var ul=document.getElementsByClassName("tree")[0];//按类名查找，返回的是集合，只有一个元素的情况，用arr[0]来获取目标对象
+    ul.onclick=function(e){//事件绑定在父元素上，用e传参，e代表事件触发的对象
+        if(e.target.nodeName=="SPAN"){//必须先验证元素是否符合条件
+            var span=e.target;//取别名
+            var openSpan=document.querySelector("ul.tree>li>span.open");//查找开着的span元素
+            if(span.className=="open"){//如果当前目标是开着的
+                span.className="";//就关上
+            }else{//否则，如果当前元素是关着的
+                if(openSpan!=null){//如果已经有开着的元素
+                    openSpan.className="";//关上开着的元素
+                    span.className="open"//打开当前元素
+                }else{//如果没有开着的元素
+                    span.className="open"//打开当前元素
+                }
+            }
+        }
+    }	
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>使用Selector API实现购物车客户端计算</title>
+<meta charset="utf-8" />
+<style>
+	table{width:600px; text-align:center;
+		border-collapse:collapse;
+	}
+	td,th{border:1px solid black}
+	td[colspan="3"]{text-align:right;}
+</style>
+
+</head>
+<body>
+	<table id="data">
+		<thead>
+			<tr>
+				<th>商品名称</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>小计</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>iPhone6</td>
+				<td>¥4488.00</td>
+        <td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </td>
+				<td>¥4488.00</td>
+			</tr>
+			<tr>
+				<td>iPhone6 plus</td>
+				<td>¥5288.00</td>
+				<td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+				</td>
+				<td>¥5288.00</td>
+			</tr>
+			<tr>
+				<td>iPad Air 2</td>
+				<td>¥4288.00</td>
+        <td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </td>
+				<td>¥4288.00</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3">Total: </td>
+				<td>¥14064.00</td>
+			</tr>
+		</tfoot>
+	</table>
+  <script>
+	  //DOM操作的标准4步
+	  //1、查找触发事件的步骤
+	  //查找table元素
+	  var table=document.getElementById("data");
+	  //在table中查找所有的按钮元素
+      var btns=table.getElementsByTagName("button");
+	  //2、绑定事件处理函数
+	  /*
+		 事件：浏览器自动触发的，或者用户手动触发的页面内容或状态的改变
+		 问题：事件随时有可能发生，但，默认即使发生了事件，也不做任何操作！如果希望事件发生时，可按照我们的要求自动执行一项任务？
+		 解决：元素的事件属性和事件处理函数
+		 事件属性：每个元素上都有一批on开头的事件属性，默认值为null，即使发生事件，什么也不做 
+		 事件函数：当事件发生时，希望自动执行的函数
+		 如何让事件处理函数在事件发生时，自动执行？
+		 解决：将事件处理函数，提前赋值给元素的事件属性保存起来
+			 比如：希望单击按钮时执行一项任务：
+				 btn.onclick=function(){任务}   典型的回调函数
+		原理：只要这个按钮上发生了某个事件，浏览器就会自动会找到这个按钮上队形的onxxx事件属性，如果这个事件属性上提前绑定了处理函数，就自动调用该函数 .btn.onclick()
+	 
+	  //btns[1].onclick=function(){alert("teng")}
+	  //遍历btns中每个按钮
+	  for(var btn of btns){
+		//每遍历一个按钮，就位按钮的onclick属性提前绑定一个事件属性
+		btn.onclick=function(){
+			//alert("Your Mother Boom！！！")
+			//让当前按钮的背景变红
+			//只要在事件处理函数中想获得当前正在只在单机的按钮，最可靠的办法就是this
+			//因为this比较晦涩，所以企业中，都会先给this起个代号，使用代号代替this使用
+			var thisBtn=this;
+			thisBtn.style.backgroundColor="red";
+		}
+      } */
+      for(var btn of btns){
+          btn.onclick=function(){
+              var btn=this;
+              //3、查找要修改的元素
+              var span=btn.parentNode.children[1];
+              var n=parseInt(span.innerHTML);
+              if(btn.innerHTML=="+"){
+                  n++;
+              }else if(n>1){
+                  n-=1;
+              }
+              //4、修改元素
+              span.innerHTML=n;
+              var td=btn.parentNode.nextElementSibling;
+              var price=parseFloat(btn.parentNode.previousElementSibling.innerHTML.slice(1));
+              td.innerHTML=`￥${price*n.toFixed(2)}`;
+              //计算总价
+              var tds=table.querySelectorAll("tbody td:last-child") 
+              var totalprice=table.querySelector("tfoot td:last-child");
+              var total=0;
+              for(var td of tds){
+                  total+=parseFloat(td.innerHTML.slice(1));
+              }
+              totalprice.innerHTML=`￥${total.toFixed(2)}`
+          }
+      }
+	  
+</script>
+</body>
+</html>

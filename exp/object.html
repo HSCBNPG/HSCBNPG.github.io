@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>DOCUMENT</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+        <script>
+				//创建一个学生对象lilei:
+				//姓名: Li Lei
+				//年龄: 11
+				//会自我介绍: I'm Li Lei, I'm 11
+				var lilei={
+					uname:"lilei",
+					uage:11,
+					intrself:function(){
+						//this指向调用方法的对象，不加this，会返回undefined
+						console.log(`I'm ${this.uname},I'm ${this.uage}`)
+					}
+				}
+				lilei.intrself();//调用对象内部方法
+				lilei.uage++;
+				lilei.uname="lixiaolei";
+				var hmm=new Object();
+				hmm.uname="Han Meimei";
+				hmm.uage=11;
+				//lilei把自己的intrself给了hmm的intrself，从此两人共用一个函数
+				hmm.intrself=lilei.intrself;
+				hmm.intrself();
+				var intrself=lilei.intrself;
+				intrself();//.前为window，intrself中的this指向window，返回undefined
+				</script>
+				<script>
+					function fun(){
+						var n=999;
+						nAdd=function(){n++};//全局变量，提升到全局作用域
+						return function(){
+							console.log(n)
+						}
+					}
+					//nAdd=function(){n++};//全局变量，提升到全局作用域
+					var getN=fun();//function(){console.log(n)}
+					getN();//999
+					nAdd();//n=1000
+					getN();//1000
+					nAdd();//n=1001
+					getN();//1001
+				</script>
+				<script>
+					//笔试，克隆一个对象
+					var lilei={sname:"lilei",sage:11}
+					function clone(obj){
+						//创建一个新的空对象var newObj=new Obj()
+						var newObj={};
+						//遍历原对象中的每一个属性
+						for(var key in obj){
+							//把原对象的属性名和属性值通过强行赋值的方式传递给新建对象
+							newObj[key]=obj[key];
+						}
+						return newObj;
+					}
+					//var lilei2=lilei;错误，不是克隆lilei，而是lilei把它引用的对象地址复制给了lilei2，二者共同引用同一个对象，修改任何一方，都等于直接修改原对象
+					var lilei2=clone(lilei)
+				</script>
+				<script>
+					function Student(sname,sage){
+						this.sname=sname;
+						this.sage=sage;
+						//this.intrself=function(){
+							//console.log(`I'm ${this.sname},I'm ${this.sage}`)
+						//}
+					}
+					Student.prototype.intrself=function(){
+						console.log(`I'm ${this.sname},I'm ${this.sage}`)
+					};
+					Student.prototype.className="三年二班"
+					var lilei=new Student("lilei",11)
+					var hmm=new Student("Han Meimei",12)
+					/*
+						lilei={
+							sname:"lilei",
+							sage:11,
+							intrself:function(){
+								console.log(`I'm ${this.sname},I'm ${this.sage}`)	
+							}
+						}
+					*/
+					console.log(lilei);
+					lilei.intrself();
+					console.log(lilei.__proto__==hmm.__proto__);
+					console.log(hmm.className);
+					lilei.className="留级啦";
+					console.log(lilei);
+					console.log(hmm);
+					Student.prototype.className="开学啦";
+					console.log(lilei.className,hmm.className);
+				</script>
+				<script>
+					//希望在项目中，所有的数组都可以调用.sum()函数自动求和
+					//强行为数组的原型对象添加一个sum函数
+					Array.prototype.sum=function(){
+						//先定义变量total，准备累加元素值
+						var total=0;
+						//this指调用时要求和的数组，arr是别名，便于理解
+						var arr=this;
+						for(var i=0;i<arr.length;i++){
+							total+=arr[i];
+						}
+						//返回total
+						return total;
+					}
+					var arr1=[1,4,76,83];
+					console.log(arr1.sum())
+				</script>
+    </body>
+</html>

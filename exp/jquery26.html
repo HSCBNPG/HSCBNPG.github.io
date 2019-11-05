@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .score {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .score li {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 1px solid #f00;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h3></h3>
+<ul class="score">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script>
+
+//点击某一行，当前行前面的变红，后面的变白
+//事件委托
+$("ul.score").on("click","li",function(){
+  var i=$(this).index()//获得当前元素在ul中的位置
+  $(`ul>li:lt(${i+1})`).css("background","red");
+  $(`ul>li:gt(${i})`).css("background","#fff")
+})
+</script>
+</body>
+</html>

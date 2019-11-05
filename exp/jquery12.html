@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1>操作元素的自定义属性</h1>
+    <img src="img/1.jpg" data-target="img/1-l.jpg" class="my-small">
+    <img src="img/2.jpg" data-target="img/2-l.jpg" class="my-small">
+    <img src="img/3.jpg" data-target="img/3-l.jpg" class="my-small">
+    <img src="img/4.jpg" data-target="img/4-l.jpg" class="my-small">
+    <hr/>
+    <img src="img/1-l.jpg" class="my-big">
+
+    <!-- 点击任意一个图片，下方显示对应图片 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //DOM4步
+        //查找触发事件元素
+        //绑定事件处理函数
+        $(".my-small").click(function(){//查找所有class为my-small的元素，并为其绑定单击事件
+            //查找要修改的元素
+            //修改下面class为my-big的元素的src属性为触发单击事件元素的data-target属性名对应的属性值
+            //自定义属性只能用.attr来获取和修改
+            $(".my-big").attr("src",$(this.attr("data-target")))
+            //修改元素
+
+        })
+        
+      
+    </script>
+</body>
+</html>

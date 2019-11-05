@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+    }
+    li {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      width: 30%;
+    }
+  </style>
+</head>
+<body>
+<ul id="list">
+  <li>尼康(234)</li>
+  <li>佳能(22)</li>
+  <li>索尼(932)</li>
+  <li>宾得(11)</li>
+  <li>爱国者(3234)</li>
+  <li>欧巴(32)</li>
+  <li>海鸥(2334)</li>
+  <li>卡西欧(334)</li>
+  <li>三星(834)</li>
+  <li>松下(234)</li>
+  <li>其它品牌(2343)</li>
+</ul>
+
+<button data-toggle="brandlist">精简显示品牌</button>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script>
+  $("button[data-toggle=brandlist]").click(function(){
+    var $btn=$(this);
+    //如果按钮的内容是"精简显示品牌"(说明现在暂时都显示着)
+    if($btn.html()=="精简显示品牌"){
+      //就隐藏>4且不是最后一个的li
+      $("ul#list>li:gt(4):not(:last)").hide();
+      //将按钮的文字改为"显示全部品牌"
+      $btn.html("显示全部品牌")
+    }else{ //否则(说明现在有隐藏的li)
+      //就让所有li都显示
+      $("ul#list>li").show();
+      //将按钮的文字改为"精简显示品牌"
+      $btn.html("精简显示品牌")
+    }
+  })
+   
+   
+</script>
+</body>
+</html>

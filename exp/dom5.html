@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>全选和取消全选</title>
+<style>
+	input+span{
+		color:red;
+	}
+	input:checked+span{
+		color:green;
+	}
+</style>
+</head>
+<body>
+	<h2>管理员列表</h2>
+	<table border="1px" width="500px">
+	  <thead>
+		<tr>
+			<th>
+				<label><input type="checkbox"/>全选</label>
+			</th>
+			<th>管理员ID</th>
+			<th>姓名</th>
+			<th>操作</th>
+		</tr>
+	  </thead>
+	  <tbody>
+	  	<tr>
+	  		<td><input type="checkbox"/><span>checked</span></td>
+	  		<td>1</td>
+	  		<td>Tester</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  	<tr>
+	  		<td><input type="checkbox"/><span>checked</span></td>
+	  		<td>2</td>
+	  		<td>Manager</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  	<tr>
+	  		<td><input type="checkbox"/><span>checked</span></td>
+	  		<td>3</td>
+	  		<td>Analyst</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  	<tr>
+	  		<td><input type="checkbox"/><span>checked</span></td>
+	  		<td>4</td>
+	  		<td>Admin</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  </tbody>
+	</table>
+	<button>删除选定</button>
+<script>
+//DOM 4步:
+//1. 查找触发事件的元素
+//2. 绑定事件处理函数
+	//3. 查找要修改的元素
+	//4. 修改元素
+//1.全选
+var qx=document.querySelector("thead input");//查找触发事件的元素
+qx.onclick=function(){
+    var tds=document.querySelectorAll("tbody input")//查找要修改的元素
+    for(var td of tds){//遍历所有checked
+        td.checked=qx.checked;//全选被选中，所有下方的checked也被选中
+    }
+}
+//下方所有选项被选中，全选也被选中，如果有没被选中的，全选也不被选中
+var tds=document.querySelectorAll("tbody input");//查找触发事件的元素
+for(var td of tds){//遍历checked
+    td.onclick=function(){
+        var tdt=this;//获得当前元素
+        var qx=document.querySelector("thead input");//查找要修改的元素
+        if(tdt.checked==false){//如果当前项未被选中
+            qx.checked=false;//全选也未被选中
+        }else{//否则，如果当前项被选中
+            if(document.querySelector("tbody input:not(:checked)")==null){//如果所有的checked没有未被选中的
+                qx.checked=true;//全选项也被选中
+            }
+        }
+    }
+}
+</script>
+</body>
+</html>

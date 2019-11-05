@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>使用Selector API实现购物车客户端计算</title>
+<meta charset="utf-8" />
+<style>
+	table{width:600px; text-align:center;
+		border-collapse:collapse;
+	}
+	td,th{border:1px solid black}
+	td[colspan="3"]{text-align:right;}
+	/*tbody中每行最后一个td背景变为黄色*/
+	tbody td:last-child{
+		background-color:yellow;
+	}
+	/*tfoot中最后一个td背景变为粉色*/
+	tfoot td:last-child{
+		background-color:pink
+	}
+</style>
+
+</head>
+<body>
+	<table id="data">
+		<thead>
+			<tr>
+				<th>商品名称</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>小计</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>iPhone6</td>
+				<td>¥4488.00</td>
+        <td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </td>
+				<td>¥4488.00</td>
+			</tr>
+			<tr>
+				<td>iPhone6 plus</td>
+				<td>¥5288.00</td>
+				<td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+				</td>
+				<td>¥5288.00</td>
+			</tr>
+			<tr>
+				<td>iPad Air 2</td>
+				<td>¥4288.00</td>
+        <td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </td>
+				<td>¥4288.00</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3">Total: </td>
+				<td>¥14064.00</td>
+			</tr>
+		</tfoot>
+	</table>
+<script>
+    //DOM四步
+    //查找触发事件的元素，如果多个子元素触发的事件相同，为了减少监听次数，可以采用delegate事件委托到父元素上
+    //绑定事件处理函数
+    //查找要修改的元素
+    //修改元素
+    var table=document.getElementById("data");//事件委托
+    table.onclick=function(e){//e代表正在点击的button
+        if(e.target.nodeName=="BUTTON"){//验证，必须nodeName为BUTTON的元素才能触发事件
+            var btn=e.target;//获得当前元素
+            var span=btn.parentNode.children[1];//查找要修改的元素
+            var n=parseInt(span.innerHTML);//获得变化的数量变量，并命名为n
+            if(btn.innerHTML=="+"){//如果button中是+
+                n+=1;//n++
+                span.innerHTML=n//将n重新赋值给soan
+            }else if(n>1){//否则，如果n>1
+                n-=1;//n-1
+                span.innerHTML=n//重新赋值
+            }else{//如果n<1
+                var tr=btn.parentNode.parentNode;
+                table.deleteRow(tr.rowIndex)//删除当前行
+            }
+            var price=parseFloat(btn.parentNode.previousElementSibling.innerHTML.slice(1));//获得当前行单价
+            var td=btn.parentNode.nextElementSibling;//获得当前行小计
+            td.innerHTML=`￥${n*price.toFixed(2)}`//将当前行重新计算后的小计赋值给小计
+            var totaltd=document.querySelector("tfoot td:last-child")//查找总价格
+            var total=0;
+            var tds=document.querySelectorAll("tbody td:last-child")//查找tbody中所有行的最后一格，即小计
+            for(var td of tds){//遍历小计
+                total+=parseFloat(td.innerHTML.slice(1))//获得小计的总和，即为总价
+            }
+            totaltd.innerHTML=`￥${total.toFixed(2)}`//将总价赋值给目标格
+        }
+    }
+</script>
+</body>
+</html>

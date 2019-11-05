@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <!-- bool=reg.test(phone) -->
+    <script>
+        //验证手机号格式是否正确
+        var phone=prompt("请输入您的手机号")
+        var reg=/^(\+86|0086\s+)?1[3-9]\d{9}$/;
+        var bool=reg.test(phone);
+        if(bool==true){
+            console.log("输入的手机号可用")
+        }else{
+            console.log("手机号格式不正确")
+        }
+    </script>
+    <!-- bool=reg.test(msg) -->
+    <script>
+        //屏蔽用户聊天记录中关于微信的敏感词及其变种
+        var msg=prompt("请输入您的消息");
+        var reg=/^(微|w(xin)?)\s*(信|x(in)?)$/;
+        var bool=reg.test(msg);
+        //var i=msg.search(/^(微|w(xin)?)\s*(信|x(in)?)$/i)
+    </script>
+    <!-- match -->
+    <script>
+        var msg=prompt("请输入您的消息");
+        var arr=msg.match(/([我卧]|wo)\s*([草艹槽]|cao)/)
+        if(arr!=null){
+            console.log("消息中含有敏感词，禁止发送")
+        }else{
+            console.log(`${msg}`)
+        }
+    </script>
+    <!-- replace -->
+    <script>
+        var str="老师:请用小红 我的 朋友造句。小亮:小红是我的朋友。小然：朋友！小红是我的！";
+        var reg=/^小[\u4e00-\u9fa5]$/ig;
+        var arr=str.match(reg)
+        str=str.replace(reg,"**")
+        console.log(`共替换了${arr==null?0:arr.length}处`)
+        //如果不加三目运算符判定，如果arr=null，会报错
+    </script>
+    <!-- replace -->
+    <script>
+        //将每个单词的首字母转大写
+        var str="you can you up,no can no bibi";
+        var reg=/\b[a-z]/ig
+        var arr=str.match(reg)
+        str=str.replace(reg,function(kw){return kw.toUpperCase()})
+        console.log(`共替换了${arr==null?0:arr.length}处`)
+    </script>
+    <!-- replace -->
+    <script>
+        //去掉字符串开头和结尾的空格
+        var str="  you can you up  "
+        var reg=/^\s+|\s+$/g;
+        function trim(str){
+            return str.replace(reg,"")
+        }
+    </script>
+    <!-- split -->
+    <script>
+        //分割
+        var str="asdasd@asdsad.com"
+        var arr=str.split("@")
+        var det="mail  to so you"
+        var arra=det.split(/\s+/)
+    </script>
+    <!-- 敏感词数组 join search -->
+    <script>
+        //敏感词数组
+        var arr=["明月","河图","当午"];
+        //将数组所有元素按指定分隔符拼接成字符串join
+        var str=arr.join("|");
+        //获得输入的消息
+        var msg=prompt("请输入您的消息内容");
+        //创建正则表达式
+        var reg=new RegExp(str);
+        //查找消息内容是否含有敏感词
+        var i=msg.search(reg);
+        if(i!=-1){
+            console.log("消息中含有，敏感词")
+        }else{
+            console.log(`${msg}`)
+        }
+    </script>
+    <!-- split join -->
+    <script>
+        //反转一个字符
+        var str="heloworld"
+        //将字符串分割成一个数组
+        var arr=str.split("");
+        //反转数组
+        arr=arr.reverse();
+        //将数组无缝拼接为字符串
+        str=arr.join("")
+    </script>
+    <!-- RegExp:bool=reg.test(str) -->
+    <script>
+        //验证用户输入的银行卡密码
+        var msg=prompt("请输入您的密码");
+        //密码必须为6位，创建正则表达式
+        var reg=new RegExp("^\\d{6}$")
+        //验证密码
+        if(reg.test(msg)==true){
+            alert("ok")
+        }else{
+            alert("no")
+        }
+    </script>
+    <!-- RegExp:arr=reg.exec(str) -->
+    <script>
+        var str="老师:请用小红 我的 朋友造句。小亮:小红是我的朋友。小然：朋友！小红是我的！";
+        var reg=new RegExp("小[\u4e00-\u9fa5]","g")
+        do{
+            var arr=reg.exec(str);
+            if(arr!==null){
+                console.log(`在位置${arr.index}处发现敏感词${arr[0]}`)
+            }else{break;}
+        }while(true)
+    </script>
+</body>
+</html>

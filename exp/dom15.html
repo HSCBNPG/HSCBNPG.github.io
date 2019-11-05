@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+ <head>
+	<meta charset="UTF-8">
+	<title>根据页面滚动位置显示浮动框</title>
+	<style>
+    body{height:2000px;}
+    #toTop{
+      position:fixed;
+      bottom:100px;
+      right:0;
+      /*display:none;*/
+    }
+  </style>
+
+ </head>
+ <body>
+	<div id="toTop">
+		<a id="a1" href="#">返回顶部</a>
+	</div>
+  <script>
+		var scrollTop=0;
+		window.onscroll=function(){
+			//获得页面上方滚动超出的距离scrollTop
+			var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+			//如果滚动距离大于等于500，就显示返回顶部的按钮
+			if(scrollTop>=500){
+				toTop.style.display="block";
+			}else{
+			//否则，如果滚动距离小于500，就隐藏
+				toTop.style.display="none";
+			}
+		}
+    a1.onclick=function(e){
+      e.preventDefault();
+      //后续js代码
+			//把a做成动画效果
+			//三要素
+			//总距离
+			var dist=scrollTop;
+			//总步数
+			var steps=50;
+			//总时间
+			var dura=500;
+			//每步走多长
+			var step=dist/steps;
+			//每步间隔时间  ：总时间/总步数不能小于10ms
+			var interval=dura/steps;
+			//启动周期性定时器
+			var timer=setInterval(function(){
+			//每次让网页滚动回指定的一步距离
+			window.scrollBy(0,-step);
+			//每走一步，就把步数减1
+			steps--;
+			//如果所有步数走完，说明到头了
+			if(steps==0){
+			//停止计时器
+				clearInterval(timer);
+			//还原总步数
+				steps=50;
+			}
+			//每隔一部时间就移动一次
+			},interval)
+    }
+	</script>
+ </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <!-- view -->
+  <ul id="nav">
+    <li>
+      <ul>
+        <li>用户名: </li>
+        <li>{{uname}}</li>
+        <li>积分: </li>
+        <li>{{score}}</li>
+      </ul>
+    </li>
+    <li>
+      <ul>
+        <li>积分: </li>
+        <li>{{score}}</li>
+        <li>*</li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+      //Model
+    var data={
+        uname:"dingding",
+        score:3000
+    }
+    //ViewModel
+    //创建虚拟DOM树、保存DOM树上所有可能发生变化的属性和元素
+    var arr=[];
+    //扫描DOM树，把可能发生变化的元素和属性添加到虚拟DOM树中
+    //封装函数
+    function getChildren(parent){
+        var children=parent.children;
+        for(var c of children){
+            if(c.children.length>0){
+                getChildren(c);
+            }else{
+                if(c.innerHTML=="{{uname}}"){
+                    c.innerHTML=data.uname;
+                    arr.push({
+                        elem:c, 
+                        innerHTML:"{{uname}}"
+                    })
+                }else if(c.innerHTML=="{{score}}"){
+                    c.innerHTML=data.score;
+                    arr.push({
+                        elem:c,
+                        innerHTML:"{{score}}"
+                    })
+                }
+            }
+        }
+    }
+    //调用函数，扫描DOM树
+    getChildren(nav)
+    //响应系统：自动为data中的每个属性添加访问器属性，当修改data中属性时，发出通知
+    Object.defineProperties(data,{
+        _uname:{//隐姓埋名
+            value:data.uname,
+            writable:true,//可修改的
+            enumerable:false//不可遍历
+        },
+        uname:{//访问器属性，冒名顶底
+            get(){return this._uanme},
+            set(value){
+                this._uname=value;
+                for(var obj of arr){
+                    if(obj.innerHTML=="{{uname}}"){
+                        obj.elem.innerHTML=value
+                    }
+                }
+            },
+            enumerable:true
+        },
+        _score:{
+            value:data.score,
+            writable:true,
+            enumerable:false
+        },
+        score:{
+            get(){return this._score},
+            set(value){
+                this._score=value;
+                for(var obj of arr){
+                    if(obj.innerHTML=="{{score}}"){
+                        obj.elem.innerHTML=value
+                    }
+                }
+            },
+            enumerable:true
+        }
+    })
+    //密封，不可增加，不可删除，可修改
+    Object.seal(data)
+  </script>
+</body>
+</html>

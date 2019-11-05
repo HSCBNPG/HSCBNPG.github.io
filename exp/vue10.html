@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+  <script>
+   Vue.filter("sexFilter",function(sex){
+       return sex==1?'男':'女'
+   })
+   Vue.filter("dateFilter",function(oldval){
+       return new Date(oldval).toLocaleString()
+   })
+   Vue.filter("statueFilter",function(oldval){
+       return oldval==0?'未付款': 
+              oldval==1?'已付款':
+              oldval==2?'已发货':
+                        '已签收'
+   })
+  </script>
+</head>
+<body>
+<div id="app">
+    <h1>性别：{{sex|sexFilter}}</h1>
+    <h1>{{orderTime|dateFilter}}</h1>
+    <h1>{{orderStatus|statueFilter}}</h1>
+</div>
+<script>
+var vm=new Vue({
+  el:"#app",
+  data:{
+    sex:1,
+    orderTime:new Date().getTime(),
+    orderStatus:3
+  }
+})
+</script>
+</body>
+</html>

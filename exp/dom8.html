@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="msg">5s后自动关闭</h1>
+    <a href="javascript:click();">留在本页</a>
+    <script>
+        var timer=setInterval(function(){
+            var h1=document.getElementById("msg");
+            var n=parseInt(h1.innerHTML)
+            if(n>1){
+                n--;
+                h1.innerHTML=`${n}s后自动关闭`
+            }else{
+                window.close()
+            }
+        },1000)
+        function click(){
+            clearInterval(timer);
+        }
+    </script>
+</body>
+</html>

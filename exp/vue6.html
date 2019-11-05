@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+  <style>
+    /* 页面初始，验证消息不显示 */
+    .vali_info{
+	    display:none;
+    }
+
+    .vali_success,.vali_fail{
+	    background-repeat:no-repeat;
+      background-position:left center;
+	    display:inline-block;
+    }
+    /* 验证消息：验证通过时的样式 */
+    .vali_success{
+      background-image:url("../images/ok.png");
+	    padding-left:20px;
+	    width:0px;height:20px;
+	    overflow:hidden;
+    }
+    /* 验证消息：验证失败时的样式 */
+    .vali_fail{
+      background-image:url("../images/err.png");
+      border:1px solid red;
+      background-color:#ddd;
+      color:Red;
+      padding-left:30px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <input v-model="phone" @focus="getFocus" placeholder="请输入手机号">
+  <span :class="spanClass">1为数组+3~9中任选一个+9位数字</span>
+</div>
+<script>
+var vm=new Vue({
+  el:"#app",
+  data:{
+    phone:"",
+    spanClass:{
+      vali_info:true,
+      vali_success:false,
+      vali_fail:false
+    }
+  },
+  methods:{
+    getFocus(){//当文本框获得焦点时
+      //只要修改data中的spanClass中的vali_info为false
+      this.spanClass.vali_info=
+      this.spanClass.vali_success=
+      this.spanClass.vali_fail=false;
+    }
+  },
+  watch:{
+    phone(){//当文本框内容改变时，v-model会自动修改data中phone变量的值。只要phone变量的值被改变，phone()函数立刻自动触发
+      if(/^1[3-9]\d{9}$/.test(this.phone)){
+        this.spanClass.vali_info=
+        this.spanClass.vali_fail=false;
+        this.spanClass.vali_success=true;
+      }else{
+        this.spanClass.vali_info=
+        this.spanClass.vali_success=false;
+        this.spanClass.vali_fail=true;
+      }
+    }
+  }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>操作元素的属性</h1>
+    <img src="./images/1.jpg" alt="1">
+    <!-- 点击图片，切换到下一张 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //DOM4步
+        //查找触发事件元素
+        //绑定事件处理函数
+        //操作元素的标准属性，可以用.attr/.prop
+        //操作元素的状态属性，用 .prop
+        //操作元素的自定义属性，用.attr
+        $("img").click(function(){
+            var $img=$(this);
+            //查找要修改的元素
+            var i=parseInt($img.attr("alt"));
+            i<4?i++:i=1;
+            //修改元素
+            $img.attr({
+                alt:i,
+                src:`./images/${i}.jpg`
+            })
+        })
+        
+      
+    </script>
+</body>
+</html>

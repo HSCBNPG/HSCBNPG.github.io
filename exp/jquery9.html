@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>form元素过滤选择器</h1>
+    <form>
+        用户名：<input type="text" disabled> <br>
+        密码：<input type="password" disabled> <br>
+        <input type="checkbox">我同意本站使用条款 <br>
+        <input type="submit" value="提交" disabled>
+    </form>
+    
+    <!-- 点击确认同意按钮，页面可以使用 ,否则无法是同-->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //DOM4步
+        //查找触发事件元素
+         //绑定事件处理函数//表单元素通过  :type 来查找 ，如  :checkbox :radio :submit等
+         //但是:input可以选择所有表单元素
+        $(":checkbox").click(function(){
+            //查找要修改的元素
+            $(":input:not(:checkbox)")
+            //修改元素
+            .prop("disabled",!$(this).prop("checked"))
+        })
+       
+        
+      
+    </script>
+</body>
+</html>

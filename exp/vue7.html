@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+  <style>
+    a{padding:5px 10px;text-decoration:none;border:1px solid #555}
+    a.disabled{background: #aaa;color:#555}
+  </style>
+</head>
+<body>
+<div id="app">
+    <a href="javascript:;" :class="{disabled:timer!=60}" @click="sub()">{{timer==60?'获取验证码':`${timer}s后可重新获取`}}</a>
+</div>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            timer:60//视图中唯一的变量timer，倒计时显示时间
+        },
+        methods:{
+            sub(){//点击事件，获取验证码
+                if(this.timer==60){//如果当前时间60，才能点击
+                    this.timer=59;//立刻将显示时间改为59
+                    var timer=setInterval(()=>{//设置定时器，
+                        if(this.timer>0){//如果当前显示时间大于0
+                            this.timer--;//每秒减1
+                        }else{//如果时间减少到0
+                            this.timer=60;//恢复时间到60
+                            clearInterval(timer)//清除定时器
+                        }
+                    },1000)
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

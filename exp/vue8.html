@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+  <script>
+      Vue.directive(
+          "focus",{
+            inserted(domElem){
+                domElem.focus();
+            }
+          }
+        )
+  </script>
+</head>
+<body>
+<div id="app">
+<!--VUE中: 事件修饰符:
+  限制触发这个事件的键盘号-->
+  <!-- <input v-model:value="kwords" @keydown.13="search"><button @click="search">百度一下</button> -->
+  <input v-model="kwords" @keydown.13="search" v-focus><button @click="search">百度一下</button>
+</div>
+<script>
+var vm=new Vue({
+  el:"#app",
+  data:{
+    kwords:""
+  },
+  methods:{
+    search(){
+      console.log(`查找 ${this.kwords} 相关的内容...`)
+    }
+  },
+  watch:{
+    kwords(){//当kwords变量改变时，做的事儿，和按钮和回车都是一样的，都是search()
+      //alert("kwords变啦！")
+      this.search();
+    }
+  }
+})
+</script>
+</body>
+</html>

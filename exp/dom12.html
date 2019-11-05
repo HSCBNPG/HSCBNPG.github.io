@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+ <head>
+	<meta charset="UTF-8">
+	<title>实现带样式的表单验证</title>
+	<link rel="Stylesheet" href="css/5.css" />
+ </head>
+ <body>
+	<form id="form1">
+		<h2>增加管理员</h2>
+		<table>
+			<tr>
+				<td>姓名：</td>
+                <td>
+					<input name="username"/>
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_info">
+						10个字符以内的字母、数字或下划线的组合
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td>
+					<input type="password" name="pwd"/>
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_info">6位数字</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2">
+          <input type="button" value="保存"/>
+          <input type="reset" value="重填"/>
+				</td>
+			</tr>				
+	    </table>
+	</form>
+<script>
+//DOM 4步:
+//1. 查找触发事件的元素
+//2. 绑定事件处理函数
+	//3. 查找要修改的元素
+	//4. 修改元素
+    //获得焦点事件,表单元素的DOM优化简写
+    var form=document.forms[0]//form表单很少使用，document.forms[i]
+    var uname=form.username;//forms.name名 有name属性的元素
+    var upwd=form.pwd;
+    uname.onfocus=//获得焦点事件
+    upwd.onfocus=function(){
+        var input=this;//获得当前目标
+        var div=input.parentNode.nextElementSibling.children[0];//查找要修改的元素，触发事件元素的父亲的下一个兄弟的第一个子元素
+        div.className=""//使其显示
+    }
+    //失去焦点事件
+    function vali(txt,reg){//封装函数，以便重复使用，把所有变量提取为参数
+        var div=txt.parentNode.nextElementSibling.children[0];
+        var bool=reg.test(txt.value);//正则验证
+        if(bool){
+            div.className="vali_success"
+        }else{
+            div.className="vali_fail"
+        }
+        return bool
+    }
+    uname.onblur=function(){
+        var reg=/^\w{1,10}$/i;
+        vali(this,reg)
+    }
+    upwd.onblur=function(){
+        var reg=/^\d{6}$/i;
+        vali(this,reg)
+    }
+    var sub=form.elements[form.length-2];//提交按钮，form表单下所有元素中的倒数第二位
+    sub.onclick=function(){//单击事件
+        if(!vali(uname,/^\w{1,10}$/i)){//如果验证没通过
+            uname.value="";
+            uname.className="vali_fail"
+            uname.focus();//自动获得焦点
+        }else if(!vali(upwd,/^\d{6}$/)){
+            upwd.value="";
+            upwd.className="vali_fail"
+            upwd.focus();
+        }else{
+            alert("注册成功")
+        }
+    }
+</script>
+ </body>
+</html>

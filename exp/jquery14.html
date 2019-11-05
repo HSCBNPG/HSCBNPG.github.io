@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .btn{
+            width:100px;height:30px;
+            padding:5px 10px;
+            border:1px solid #aaa;
+            outline:none;
+        }
+        .up{
+            background: #f0f;
+            color:#fff;
+        }
+        .down{
+            background: #0f0;
+            color:#000;
+        }
+    </style>
+</head>
+<body>
+    <h1>双态按钮</h1>
+    <button class="btn up">切换</button>
+    
+    <!-- 点击按钮，切换按钮状态 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //DOM4步
+        //查找触发事件元素
+        //绑定事件处理函数
+        $(".btn").click(function(){
+            //查找要修改的元素
+            //修改元素
+            $(this).toggleClass("down")
+        })
+      
+    </script>
+</body>
+</html>

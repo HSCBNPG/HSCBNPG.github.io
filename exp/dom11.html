@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>二级联动列表</title>
+<meta charset="utf-8" />
+<style>
+	.hide{ display: none; }
+</style>
+
+</head>
+<body>
+	<select name="provs">
+		<option>—请选择—</option><!--0-->
+		<option>北京市</option><!--1-->
+		<option>天津市</option>
+		<option>河北省</option>
+	</select>
+	
+	<select name="cities" class="hide">
+	</select>
+  <script>
+	/*实现“省”和“市”的级联下拉列表*/
+	var cities=[
+      [{"name":'东城区',"value":101},
+       {"name":'西城区',"value":102},
+       {"name":'海淀区',"value":103},
+       {"name":'朝阳区',"value":104}],
+      [{"name":'河东区',"value":201},
+       {"name":'河西区',"value":202},
+       {"name":'南开区',"value":303}],
+      [{"name":'石家庄市',"value":301},
+       {"name":'廊坊市',"value":302},
+       {"name":'保定市',"value":303},
+       {"name":'唐山市',"value":304},
+       {"name":'秦皇岛市',"value":304}]
+	];
+//DOM 4步:
+//1. 查找触发事件的元素
+//2. 绑定事件处理函数
+  //3. 查找要修改的元素
+  //4. 修改元素
+var selp=document.getElementsByName("provs")[0];//查找触发事件的元素，因为子元素需绑定的事件相同，所以需要事件委托
+selp.onchange=function(){//把事件绑定在父元素上，减少监听次数
+    var optsel=this;//获得当前选中的元素
+    var selto=document.getElementsByName("cities")[0];//查找要修改的元素
+        var i=optsel.selectedIndex;//获得选中元素的下标
+        var cts=cities[i-1];//选中元素的下标比对应cities数组中对应的对象下标多1，所以用cities[i-1]获得目标对象
+    if(i==0){//如果选中的是-请选择-，子元素不显示
+        selto.className="hide";
+        return;//函数结束
+    }else{//否则，如果选中的是某省份
+        selto.className="";//显示次级元素
+        var frag=document.createDocumentFragment();//创建文档片段
+        frag.appendChild(new Option('—请选择—'));//在文档片段开头添加-请选择-子元素
+        for(var cty of cts){//遍历要添加的对象
+           /*var opt=document.createElement("option");
+            opt.innerHTML=cty.name;
+            opt.value=cty.value;
+            frag.appendChild(opt)*/ 
+            frag.appendChild(new Option(cty.name,cty.value))//创建新的option元素，文本内容和value值分别是数组对象中的name和value，追加到文档片段末尾
+        };
+        selto.innerHTML=""//追加之前，先清空父元素的内容，防止上次选中后添加的元素有残留
+        selto.appendChild(frag);//将文档片段追加到次级元素中
+    }   
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #target{
+            border:1px solid #eee;
+            border-radius:6px;
+            padding:10px;
+            transition:all .5s linear;
+        }
+        #target.hover{
+            border:1px solid #aaa;
+            box-shadow:0 0 6px #aaa;
+            background: red;
+            color:#fff
+        }
+    </style>
+</head>
+<body>
+    <h1>鼠标事件，hover</h1>
+    <h3>鼠标悬停在div上，突出显示，移除则取消突出</h3>
+    <div id="target">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse delectus consectetur necessitatibus quibusdam iusto placeat officiis repudiandae maxime amet eaque, vero enim, repellendus quidem laboriosam, aut temporibus asperiores. Mollitia, nostrum!</div>
+    
+    <!-- 点击任意一个按钮，弹出疼 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //DOM4步
+        //查找触发事件元素
+        
+        //绑定事件处理函数
+        
+            //查找要修改的元素
+            
+            //修改元素
+      $("#target").hover(function(){
+          $(this).toggleClass("hover")
+      })
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style:none;
+        }
+        ul>li{
+            float:left;
+            width:100px;
+            height:50px;
+            text-align:center;
+            line-height:50px;
+            border:1px solid #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>实现按钮效果</h1>
+    <ul>
+        <li>上一首</li>
+        <li>播放</li>
+        <li>暂停</li>
+        <li>下一首</li>
+    </ul>
+    
+    <!-- 点击任意一个按钮，弹出疼 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //从第一个li左上，左下圆角
+        $("ul>li:first").css("border-radius","5px 0 0 5px");
+        //最后一个li右上 右下圆角
+        $("ul>li:last").css("border-radius","0 5px 5px 0");
+        //去掉除第一个之外所有li的左边框
+        $("ul>li:gt(0)").css("border-left",0)
+
+    </script>
+</body>
+</html>

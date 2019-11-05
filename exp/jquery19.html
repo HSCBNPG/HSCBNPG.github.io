@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+  </style>
+</head>
+<body>
+    <!-- 模拟触发 -->
+    <input><button>百度一下</button>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //dom四步
+        //查找触发事件的元素  鼠标点击事件
+        $("button")
+        //绑定事件处理函数
+        .click(function(){
+            //查找要修改的元素 trim()函数作用：掐头去尾
+            var val=$("input").val().trim();
+            if(val!==""){
+                console.log(`查询${val}相关的内容`)
+            }
+        })
+        //敲回车搜索
+        $(":text")//input 默认type为text，可不写
+        .keyup(function(e){
+            if(e.keycode==13){//回车键的键位号是13
+                //执行单击事件
+                //$("button").trigger("click")
+                $("button").click();
+            }
+        })
+        //当用户再文本框中输入文字时，自动实时查询
+        //$(":text") input 不属于21个简写事件，不能用简写方法
+        .on("input",function(){
+            //执行button单击事件
+            $("button").click();
+        })
+    </script>
+</body>
+</html>

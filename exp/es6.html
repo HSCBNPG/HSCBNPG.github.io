@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var t=0;
+        function t1(){
+            console.log(`任务1耗时${t}s`);
+            t+=0.3;
+        }
+        function t2(){
+            console.log(`任务2耗时${t}s`);
+            t+=0.8;
+            var err=false;
+            if(err==true){
+                let t=new Date();//let使t在一个局部作用域内，没有声明提前，let相当于匿名函数自调用
+                console.log(t)
+            }
+        }
+        t1();
+        t2();
+        console.log(t)
+    </script>
+    <script>
+        var t=0;
+        function t1(){
+            console.log(`任务1耗时${t}s`);
+            t+=0.3;
+        }
+        function t2(){
+            console.log(`任务2耗时${t}s`);
+            t+=0.8;
+            var err=false;
+            if(err==true){
+                var t=new Date();//var t声明提前，提升到函数最顶端，数值留在原地
+                console.log(t)
+            }
+        }
+        t1();
+        t2();
+        console.log(t)
+    </script>
+    <script>
+        //this->window
+        var lilei={//对象的{}不是墙
+            sname:"Li Lei",
+            friends:["jack","rose","tom","jerry"],
+            intrSelf:function(){
+                this.friends.forEach(
+                    function(fname){
+                        console.log(`${this.sname} 认识 ${fname}`)//this.name为undefined，因为this指向window
+                    }.bind(this)//bind(this),将函数中的this永久替换为.前的变量，交给主函数的，已经不是原函数。而是一个bind创建的副本，且永久替换了this。主函数可以尽情反复使用！
+                    //fname=>console.log(`${this.sname} 认识 ${fname}`)
+                    //.bind(this) //只要回调函数中的this错了！只能用bind换！
+                    //交给主函数的，已经不是原函数。而是一个bind创建的副本，且永久替换了this。主函数可以尽情反复使用！
+                )
+            }
+        }
+        lilei.intrSelf();
+    </script>
+    <script>
+        function calc(ename,...arr){
+            //console.log(`${ename}的总工资为${
+             //   arr.reduce((prev,elem)=>prev+elem,0)
+            // }`)
+            var sum=0;
+            for(var val of arr){
+                sum+=val;
+            }
+            console.log(`${ename}的总工资为${sum}元`)
+        }
+        calc("Li Lei",10000,5000,2000)
+    </script>
+    <script>
+        var arr=[2019,8,24]
+        var [,m,d]=arr
+        console.log(m,d)
+    </script>
+    <script>
+        /*function Student(sname,sage){
+            this.sname=sname;
+            this.sage=sage
+        }
+        Student.prototype.intrSelf=function(){
+            console.log(`${this.sname} ${this.sage}`)
+        }
+        Student.prototype.run=function(){
+            console.log(`${this.sname}`)
+        }
+        var lilei=new Student("Li Lei",11)
+        lilei.intrSelf();
+        lilei.run();*/
+        class Student{
+            constructor(sname,sage){
+                this.sname=sname;
+                this.sage=sage
+            };
+            intrSelf(){
+                console.log(`${this.sname} ${this.sage}`)
+            };
+            run(){
+                console.log(`${this.sname}`)
+            }
+        }
+    </script>
+    <script>
+        class Enemy{//定义父类型enemy，保存子类型都有的属性和方法
+           constructor(x,y){
+               this.x=x;
+               this.y=y
+           };
+           fly(){
+               console.log(`fly to x:${this.x},y:${this.y}`);
+           }
+        }
+        class San extends Enemy{//子类型通过extends继承父类型的属性和方法
+            constructor(x,y,award){
+                super(x,y);//通过super(x,y)引用父类型的构造函数
+                this.award=award
+            }
+            getAward(){
+                console.log(`get${this.award}`)
+            }
+        }
+        //创建伞的子类型
+        var san1=new San(200,100,"one life")
+        console.log(san1)
+        san1.fly();
+        san1.getAward()
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>jqueryAPI特点</h1>
+    <button>click me(0)</button>
+    <button>click me(0)</button>
+    <button>click me(0)</button>
+    <!-- 点击任意一个按钮，弹出疼 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //DOM4步
+        //查找触发事件元素
+        var $btn=$("button")//1.自带遍历，遍历数组中每个对象，并为每个元素都绑定事件处理函数
+        //绑定事件处理函数
+        .click(function(){//2.自动返回正在操作的jq对象主语，便于链式反应
+            //查找要修改的元素
+            var $btnself=$(this);
+            var html=$btnself.html();//3.一函数两用
+            var n=parseInt(html.slice(9,-1));
+            n++;
+            //修改元素
+            $btnself.html(`click me(${n})`)
+        })
+    </script>
+</body>
+</html>

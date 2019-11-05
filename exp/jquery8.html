@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <h1>可见性选择器</h1>
+    <div class="container">
+        <div id="d1" style="display:none">1</div>
+        <div id="d2" style="visibility:hidden">2</div>
+        <div id="d3" style="opacity:0">3</div>
+        <input id="d4" type="hidden" name="aa" value="bb">
+    </div>
+    
+    <!-- 点击任意一个按钮，弹出疼 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        console.log($(".container :hidden"))//#1,#4
+        console.log($(".container :visible"))//#2 #3
+    </script>
+</body>
+</html>

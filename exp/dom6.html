@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>读取并修改元素的属性</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/3.css" />
+<style></style>
+
+</head>
+<body>
+	<h2>实现多标签页效果</h2>
+  <div class="tabs">
+    <ul id="tab">
+      <li><a href="javascript:;" data-click="tab" data-id="content1">10元套餐</a></li>
+      <li><a href="javascript:;" data-click="tab" data-id="content2">30元套餐</a></li>
+      <li><a href="javascript:;" data-click="tab" data-id="content3">50元包月</a></li>
+    </ul>
+    <div id="container">
+      <div id="content1" style="z-index:9">
+        10元套餐详情：<br />&nbsp;每月套餐内拨打100分钟，超出部分2毛/分钟
+      </div>
+      <div id="content2">
+        30元套餐详情：<br />&nbsp;每月套餐内拨打300分钟，超出部分1.5毛/分钟
+      </div>
+      <div id="content3">
+        50元包月详情：<br />&nbsp;每月无限量随心打
+      </div>
+    </div>
+  </div>
+<script>
+//DOM 4步
+//1. 查找触发事件的元素
+//2. 绑定事件处理函数
+  //3. 查找要修改的元素
+  //4. 修改元素
+var ul=document.getElementById("tab");//事件委托，将事件绑定在触发事件的父元素上，可以减少监听次数
+var index=10;//先定义一个全局变量index，用于累计现在zIndex的数值，index初始值只要比现在显示在页面上的元素的zIndex大即可
+tab.onclick=function(e){//绑定单击事件，参数e表示正被单击的元素
+    if(e.target.dataset.click=="tab"){//如果元素的data-click等于tab，即可触发事件
+        var tab=e.target;//获得当前元素
+        var id=tab.getAttribute("data-id")//tab.dataset.id 获得当前元素保存的id值，与要修改的元素id一一对应
+        var div=document.getElementById(id);//查找与单击对象保存的id值相同的元素，即为要修改的对象元素
+        div.style.zIndex=index++;//修改当前tab对应id值的div元素的zIndex为更大的一个数值，以此使其显示在上面
+    }
+}
+
+</script>
+</body>
+</html>

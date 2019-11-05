@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //形参列表可以用对象代替，形参中每个变量时对象的属性名，传入的实参也以对象的形式传递
+        /*菜谱: 西红柿鸡蛋面
+            材料: 西红柿  鸡蛋  面
+            步骤: 
+            1. 炒鸡蛋
+            2. 炒西红柿
+            3. 把西红柿和鸡蛋一起炒
+            4. 煮面条
+            5. 把炒好的西红柿和鸡蛋放在面条上
+            结果: 
+            一碗西红柿鸡蛋面s*/
+        /*
+        //function cool(dan="鸡蛋",cai="西红柿",mian="面"){
+        function cool(obj){
+            if(obj.dan==undefined){obj.dan="鸡蛋"};
+            if(obj.cai==undefined){obj.cai="西红柿"};
+            if(obj.mian==undefined){obj.mian="面条"};
+            console.log(`炒${obj.dan}`);
+            console.log(`炒${obj.cai}`);
+            console.log(`把${obj.cai}和${obj.dan}一起炒`);
+            console.log(`煮${obj.mian}`);
+            console.log(`把炒好的${obj.cai}和${obj.dan}放在${obj.mian}上`);
+            return `一碗热腾腾的${obj.cai}${obj.dan}${obj.mian}`
+        }
+        var wan=cool({});
+        console.log(`得到${wan}`)
+        var wan1=cool({dan:"火腿肠",cai:"黄瓜",mian:"米线"});
+        console.log(`得到${wan1}`)
+        var wan2=cool({cai:"榴莲"});
+        console.log(`得到${wan2}`)
+        //变量的声明提前 hoist
+        console.log(a);//a声明提前，undefined
+        var a=10;
+        console.log(a); //10
+        //函数的声明提前
+        var fun=function(){ 
+                    console.log(1); 
+                }
+        fun();//1
+        var fun=function(){ 
+                    console.log(2); 
+                }
+        fun();//2
+        var fun=100;
+        fun();//error:fun is not a function
+        function fun(){console.log(1)};
+        fun();//2
+        function fun(){console.log(2)};
+        fun();//2  函数存在声明提前，同名函数，前面的会被后面的覆盖引用地址
+        //一定要输出1和2,怎么改？
+        var fun=function(){console.log(1)}
+        fun();
+        var fun=function(){console.log(2)}
+        fun();
+        //重载,同名函数，根据传入的参数的个数不同，选择不同的执行函数体
+        function pay(){
+            //arguments[]接住传入的参数
+            if(arguments.length==0){
+                console.log("手机支付");
+            }else if(arguments.length==1){
+                console.log("现金支付");
+            }else{
+                console.log("刷卡支付")
+            }
+        }
+        pay(100);
+        pay();
+        pay("6553 2541","123456")
+        //匿名函数anonyFuntion
+        (function(){
+            var start=new Date();
+            alert(`开始加载页面内容,at:${start.toLocaleString()}`);
+          })();
+          console.log(window.start)//undefined,说明window中没有start了
+          var end=new Date();
+          alert(`页面加载完成,at:${end.toLocaleString()}`);
+          console.log(window.end);//不是undefined
+          //说明end遗留在window中了
+          //如果让end，也不要留在window中呢？
+            (function(){var end=new Date();
+          alert(`页面加载完成,at:${end.toLocaleString()}`);})();*/
+          //闭包：closure
+          function parent(){//外层函数把受保护的变量和内层函数包裹起来
+              var total=1000;
+              //外层函数将内层函数返回到外层函数外部
+              return function(money){
+                  total-=money
+                  console.log(`本次花了${money}元，还剩${total}元`)
+              }
+          }
+          //调用外层函数，获得内层函数对象，再起一个名字，内层函数引用着外层函数的变量，导致外层函数无法释放
+          var pay=parent();
+          total=0;
+          pay(100);
+          total=2000;
+          pay(200);
+          
+    </script>
+</body>
+</html>

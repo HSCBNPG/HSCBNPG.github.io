@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>总计：￥{{total.toFixed(2)}}</h1>
+    <ul @click="del" style="list-style: none">
+        <li v-for="(item,index) of cart" :key="index">
+          <label>
+            <input type="checkbox" v-model="item.ischecked">
+            {{item.pid}} {{item.pname}} ￥{{item.price}} {{item.count}} 小计：￥{{item.price*item.count.toFixed(2)}} 
+            <button :data-i="index">x</button>
+          </label>
+        </li>
+    </ul>
+    <h1>总计：￥{{total.toFixed(2)}}</h1>
+</div>
+<script>
+var vm=new Vue({
+  el:"#app",
+  data:{
+    cart:[
+        {pid:1,pname:"华为",price:8000.00,count:2,ischecked:false},
+        {pid:2,pname:"小米",price:2000.00,count:1,ischecked:false},
+        {pid:3,pname:"苹果",price:7000.00,count:3,ischecked:false},
+        {pid:4,pname:"魅族",price:5000.00,count:4,ischecked:false},
+    ],
+    bool:true
+  },
+  methods:{
+      del(e){
+        if(e.target.nodeName=="BUTTON"){
+            var i=parseInt(e.target.dataset.i);
+            this.cart.splice(i,1)
+        }
+      }
+  },
+  watch:{},
+  computed:{
+      total(){
+        return this.cart.filter(item=>item.ischecked).reduce(
+        (prev,item)=>
+            prev+item.price*item.count    
+        ,0)
+      }
+  }
+})
+</script>
+</body>
+</html>

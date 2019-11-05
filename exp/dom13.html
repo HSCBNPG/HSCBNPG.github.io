@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>取消与利用冒泡</title>
+		<meta charset="utf-8"/>
+	</head>
+<body>
+<div id="keys">
+	<button>1</button>
+	<button>2</button>
+	<button>3</button>
+	<button>4</button><br>
+	<button>C</button>
+	<button>+</button>
+	<button>-</button>
+	<button>=</button>
+</div>
+<textarea id="sc" style="resize:none;width:200px; height:50px;" readonly></textarea>
+<script>
+    //DOM4步
+    //1、查找触发事件的元素  2、绑定事件处理函数  3、查找要修改的元素  4、修改元素
+    var btndiv=document.getElementById("keys");//事件委托delegate
+    btndiv.onclick=function(e){//e指当前正在点击的事件对象
+        if(e.target.nodeName=="BUTTON"){//判定，只有点击元素是button才能执行绑定事件，注意button必须大写
+            var btn=e.target;//获得当前元素
+            var val=btn.innerHTML;//获得触发事件的元素内容
+            var sc=document.getElementById("sc");//查找要修改的元素
+            if(val=="C"){//判定，如果是C
+                sc.value="";//sc内容清空
+                return;//结束函数
+            }else if(val=="="){//如果是=号
+                if(sc.value!=""){//如果sc区域已经有内容
+                    try{
+                        sc.value=eval(sc.value);//sc的文本内容等于运算sc内容后的值 eval() 强制执行字符串中的运算
+                    }catch(err){//如果出错
+                        sc.value=err;//sc内容等于错误信息
+                    }
+                }
+                return;//结束函数
+            }else{
+                sc.value+=val//如果button内容是数字或者+ - ，就将button中的内容拼接到sc中去
+            }
+        }
+    }
+</script>
+</body>
+</html>

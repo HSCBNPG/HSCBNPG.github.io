@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>jquery 工厂函数</h1>
+    <button id="btn">click me(0)</button>
+    <!-- 要求，每点击一次，括号内数字加1 -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        //DOM四步
+        //查找触发事件的元素
+        var $btn=$("#btn")//$("选择器")
+        //绑定事件处理函数
+        $btn.click(function(){//绑定事件相当于.addEventListener("click",function(){...})
+            //查找要修改的元素
+            var $btnself=$(this);
+            var html=$btnself.html();//.html()不带参数表示查找目标元素的内容
+            //修改元素
+            var n=parseInt(html.slice(9,-1));
+            n++;
+            $btnself.html(`click me(${n})`);//带参数表示修改
+        })
+    </script>
+</body>
+</html>

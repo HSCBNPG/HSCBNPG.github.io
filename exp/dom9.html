@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello world</h1>
+    <p>welcome to here</p>
+    <a href="javascript:;" target="_self"></a>
+    <a href="javascript:;" target="_blank"></a>
+    <a href="javascript:;" target="any"></a>
+    <script>
+        var  a=document.createElement("a");
+        a.href="http://www.baidu.com"
+        a.innerHTML="百度一下，你就知道"
+        //document.body.appendChild(a)
+        var p=document.body.children[1]
+        //document.body.insertBefore(a,p)
+        document.body.replaceChild(a,p)
+    </script>
+    <script>
+        //打开新链接方式总结
+        //当前窗口，可后退
+        function open1(){
+            window.open("javascript:;","_self")
+        }
+        //当前窗口，不可后退
+        function open2(){
+            location.replace("http://www.baidu.com")
+        }
+        //新窗口，多个页面
+        function open3(){
+            window.open("javascript:;","_blank‘")
+        }
+        //新窗口，只能打开一个
+        function open4(){
+            window.open("javascript:;","you")
+        }
+    </script>
+</body>
+</html>

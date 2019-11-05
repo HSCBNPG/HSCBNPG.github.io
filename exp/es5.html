@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //斐波那契数列
+        function fib(n){
+            if(n<3){
+                fn=1;
+            }else{
+                var f1=1,f2=1,fn;
+                for(var i=3;i<=n;i++){
+                    fn=f1+f2;
+                    f1=f2;
+                    f2=fn;
+                }
+                return fn;
+            }
+        }
+        /*严格模式禁用arguments.callee，也就是es5不鼓励使用递归
+        function fib(n){
+            if(n<3){
+                return 1;
+            }else{
+                return arguments.callee(n-1)+arguments.callee(n-2)
+            }
+        }*/
+    </script>
+    <script>
+        "use strict";
+        var eric={
+            eid:1001,
+            ename:"艾瑞克",
+            salary:9989
+        }
+        Object.definePrototies(eric,{
+            sid:{
+                writable:false,//禁止修改
+                enumerable:false,//禁止遍历
+                configurable:false//禁止删除，同时禁止修改writable和enumerable
+            },
+            ename:{
+                enumerable:false,//禁止遍历
+                configurable:false//禁止删除
+            },
+            salary:{
+                writable:false,//禁止修改
+                configurable:false//禁止删除
+            }
+        })
+        console.log(eric.salary)//防不住用.直接访问
+        //将要保护的属性半隐藏
+    </script>
+    <script>
+        var eric={
+            eid:1001,
+            ename:"艾瑞克",
+            _eage:25
+        };
+        Object.defineProperties(eric,{
+            _eage:{//数据属性，隐姓埋名，半隐藏
+                enumerable:false,//禁止遍历
+                configurable:false//禁止删除
+            },
+            //访问器属性，不能用.添加，只能用defineProperties或defineProperty添加
+            eage:{//访问器属性冒名顶替原属性名
+                get:function(){//当外人试图获取eage的属性值时，自动调用get，由get代为从受保护的属性中拿出真实值返回给外部
+                    return this._eage
+                },
+                set:function(value){
+                    //当外人试图修改wage的属性值时，自动调用set
+                    //将要赋的新值，先交给value
+                    //在set内部使用自定义规则验证value
+                    //value符合要求
+                    if(value>=18&&value<=65){
+                        //才实际保存回受保护的数据属性中
+                        this._eage=value;
+                    }else{//否则，不赋值，并报错
+                        throw Error("年龄必须介于18~65之间")
+                    }
+                },
+                enumerable:true,
+                configurable:false
+            }
+        });
+    </script>
+    <script>
+        var father={
+            bal:9999999,
+            car:"infinity"
+        }
+        //创建一个子对象，继承fatheer，并为子对象添加自有属性
+        var hmm=Object.create(father,{
+            phone:{
+                value:"Iphone XS",
+                writable:true,
+                enumerable:true,
+                configurable:false
+            }
+        })
+    </script>
+    <script>
+        function calc(base,bonus1,bonus2){
+            console.log(`${this.ename}的总工资为：${base+bonus1+bonus2}`)
+        };
+        var lilei={ename:"Li Lei"};
+        var hmm={ename:"Han Meimei"};
+        calc.call(lilei,5000,2000,1000);
+        var arr=[6666,2222,3333];
+        calc.apply(hmm,[arr])
+        //lcalc:function calc(10000,b1, b2){
+        //console.log(`${lilei.ename} ...`)
+        //}
+        //不是调用calc()的意思！
+        //而是再新创建一个和原calc()功能完全一样的lcalc()函数。并永久替换新lcalc()函数中的this为lilei。
+        //从此再调用新lcalc()函数时，不再需要.call()，也不再需要每次都传入lilei。
+        var lcalc=calc.bind("lilei",12223);
+        lcalc(2000,3000);
+        //hmm向用call（）和抢lilei的计算器
+        lcalc.call(hmm,5566,2233,2211)
+    </script>
+    <script>
+        //双色球规则：
+        //红球：1~33之间，随机选6个不重复的
+        //蓝球：1~16之间，随机选一个
+        var reds=[];
+        var blue=[];
+        //只要红球数目小于6个，就继续执行循环
+        while(reds.length<6){
+            //随机取1~33之间任意整数
+            var red=Math.ceil(Math.random()*33);
+            //判定，只有红球数目不重复，才继续加入数组，否则，不要，继续下一次循环
+            if(reds.indexOf(red)==-1){
+                reds.push(red);
+            }
+        }
+        reds.sort((a,b)=>a-b)
+        blue[0]=Math.ceil(Math.random()*16)
+    </script>
+    <script>
+        var arr1=[1,2,3,4,5];
+        var arr2=[2,4,6,8,10];
+        //判断哪个数组全部由偶数组成
+        console.log(
+            arr1.every(function(value,i,arr){
+                return arr[i]%2==0
+            }),
+            arr2.every(function(value){
+                return value%2==0
+            })
+        );
+        //判断哪个数组是升序排列
+        console.log(
+            arr1.every(function(value,i,arr){
+                return i<arr.length-1?value<=arr[i+1]:true
+            }),
+            arr2.every(function(value,i,arr){
+                return i<arr.length-1?value<=arr[i+1]:true
+            })
+        )
+        //对原数组中每个元素*2
+        arr1.forEach(//forEach 遍历数组中的每一个元素
+            function(value,i,arr){
+                arr[i]*2//arr[i]*2=value*2
+                //不能使用value*2，因为value*2仅修改按值传递时复制的副本，原数组中的原位置不变，因为没有返回值
+        })
+        var objs=[{x:1},{x:2},{x:3},{x:4}];
+        objs.forEach(
+            function(value,i,arr){
+                value.x*2
+            }
+        )
+    </script>
+    <script>
+        //过滤：复制出原数组中符合条件的元素到新数组中，原数组保持不变
+        var nums=[1,2,3,4,5,6]
+        var evens=nums.filter(function(value){
+            return value%2==0;
+        })
+    </script>
+</body>
+</html>
