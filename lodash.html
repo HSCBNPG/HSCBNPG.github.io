@@ -7,21 +7,280 @@
     <link rel="icon" href="img/star.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Lodash学习笔记</title>
+    <style>
+        p{
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+        .car-header{
+            padding: 5px 15px;
+        }
+        span{
+            display: block;
+            margin: 5px 0;
+            font-size: .9rem;
+        }
+    </style>
 </head>
 <body>
     <div id="parent">
+        <!-- c01 映射-->
         <div class="card bg-light">
             <div class="car-header">
-                <a href="#c01" class="card-link h3" data-toggle="collapse"></a>
+                <a href="#c01" class="card-link h4" data-toggle="collapse">ES5: map 映射</a>
             </div>
             <div class="collapse" id="c01" data-parent="#parent">
                 <div class="card-body">
-
+                    <p>与_.map相同</p>
+                    <span>将数组按需映射成一个新的数组，原数组保持不变</span>
+                    <pre>
+            var arr = [1,2,3]
+            var arr2 = arr.map(n => n*2) 
+            //如果函数内只有一行代码可省略return
+                    </pre>
                 </div>
             </div>
         </div>
-        
+        <!-- c02 查找-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c02" class="card-link h4" data-toggle="collapse">ES5: indexOf 查找元素</a>
+            </div>
+            <div class="collapse" id="c02" data-parent="#parent">
+                <div class="card-body">
+                    <p></p>
+                    <span>查找元素再数组中的位置，找不到返回-1</span>
+                    <pre>
+            var arr = [1,2,3]
+            console.log(arr.indexOf(3,1)) // 2
+            //var i=arr.indexOf("ele",fromi)
+            //返回值：找到返回对应元素的下标i，找不到返回-1
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c03 判断-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c03" class="card-link h4" data-toggle="collapse">ES5: every、some 判断</a>
+            </div>
+            <div class="collapse" id="c03" data-parent="#parent">
+                <div class="card-body">
+                    <p>every——严格判断</p>
+                    <span>判断数组中的所有元素是否都符合此要求</span>
+                    <pre>
+            var arr = [1,2,3]
+            console.log(arr.every(function(item,i,arr){
+                return item > 2
+            }))  // false
+                    </pre>
+
+                    <p>some——浅判断</p>
+                    <span>判断一个元素是否符合此要求</span>
+                    <pre>
+            var arr = [1,2,3]
+            console.log(arr.some(function(item,i,arr){
+                return item > 2
+            }))  // true
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c04 循环-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c04" class="card-link h4" data-toggle="collapse">ES5: forEach 循环</a>
+            </div>
+            <div class="collapse" id="c04" data-parent="#parent">
+                <div class="card-body">
+                    <p>等同于for循环</p>
+                    <span>代替for循环</span>
+                    <pre>
+            var arr = [1,2,3]
+            arr.forEach(function(item,i,arr1){
+                arr1[i] = item+1   //循环时执行的操作
+            })
+            console.log(arr) // 2,3,4
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c05 过滤-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c05" class="card-link h4" data-toggle="collapse">ES5: filter 过滤</a>
+            </div>
+            <div class="collapse" id="c05" data-parent="#parent">
+                <div class="card-body">
+                    <p></p>
+                    <span>复制出原数组中符合条件的元素组成新数组返回，原数组保持不变</span>
+                    <pre>
+            var arr = [1,2,3]
+            var arr3 = arr.filter(function(item,i,value){
+                return item > 2   //过滤条件
+            })
+            console.log(arr3) //3
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c06 汇总-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c06" class="card-link h4" data-toggle="collapse">ES5: reduce 汇总</a>
+            </div>
+            <div class="collapse" id="c06" data-parent="#parent">
+                <div class="card-body">
+                    <p></p>
+                    <span>对数组中的元素进行统计，得出最终结论。原数组保持不变</span>
+                    <pre>
+            // 汇总  reduce
+            var sum = arr.reduce(function(prev,item,i,arr){
+                if(item < 3){
+                    prev+=item
+                }
+                return prev   //prev 为起始值，可以是任意值
+            },0)
+            console.log(sum)  //3
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c07 博文-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c07" class="card-link h5" data-toggle="collapse">delete和splice删除数组中的元素的区别</a>
+            </div>
+            <div class="collapse" id="c07" data-parent="#parent">
+                <div class="card-body">
+                    <p>参考原文：<a href="https://www.cnblogs.com/xielong/p/10120270.html">https://www.cnblogs.com/xielong/p/10120270.html</a></p>
+                    <pre>
+    1）delete: 只是被删除的元素变成了 undefined 其他的元素的键值还是不变。
+            var array=["aa","dd","cc","aa"];
+            delete array[1];  //结果：["aa",undefined,"cc","aa"]
+    2) splice: 该方法会改变原始数组
+            array.splice(1,1);  //会返回所删除的数组
+            //输出结果：["aa","cc","aa"]
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c08 博文-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c08" class="card-link h5" data-toggle="collapse">索引数组和关联数组</a>
+            </div>
+            <div class="collapse" id="c08" data-parent="#parent">
+                <div class="card-body">
+                    <p>参考原文：<a href="https://blog.csdn.net/suandfei/article/details/101390535">https://blog.csdn.net/suandfei/article/details/101390535</a></p>
+                    <pre>
+        1）索引数组: 以0以上的整数为下标的数组，用arr[0]方式访问的
+                var array=["aa","dd","cc","aa"];
+                array[0] 或 array["aa"]
+        2) 关联数组: 不能用下标访问的
+                array["ee"] = 123456
+                console.log(array)  //["aa", "dd", "cc", "aa", ee: 123456]
+                不能用array[4]访问
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c09 博文-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c09" class="card-link h5" data-toggle="collapse">判断一个数组中是否包含此元素</a>
+            </div>
+            <div class="collapse" id="c09" data-parent="#parent">
+                <div class="card-body">
+                    <p>参考原文：<a href="https://blog.csdn.net/suandfei/article/details/101390535">https://blog.csdn.net/suandfei/article/details/101390535</a></p>
+                    <pre>
+        1）
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c10 博文 -->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c10" class="card-link h5" data-toggle="collapse">两种类型间的继承</a>
+            </div>
+            <div class="collapse" id="c10" data-parent="#parent">
+                <div class="card-body">
+                    <p>参考原文：<a href="https://blog.csdn.net/weixin_42098339/article/details/87900369">https://blog.csdn.net/weixin_42098339/article/details/87900369</a></p>
+                    <p>ES5:</p>
+                    <pre>
+        2)
+                    </pre>
+                    <p>ES6:</p>
+                    <pre>
+        1）
+                    </pre>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        var arr = [1,2,3]
+        var arr2 = arr.map(n => n*2)
+        console.log(arr2)
+        // 查找
+        console.log(arr.indexOf(3,1))
+        // 判断数组中的所有元素
+        console.log(arr.every(function(item,i,arr){
+            return item > 2
+        }))
+        // 判断一个（或多个）即可
+        console.log(arr.some(function(item,i,arr){
+            return item > 2
+        }))
+        // 循环
+        arr.forEach(function(item,i,arr1){
+            // arr1[i] = item+1
+        })
+        console.log(arr)
+        // 过滤
+        var arr3 = arr.filter(function(item,i,value){
+            return item > 2
+        })
+        console.log(arr3)
+        // 汇总
+        var sum = arr.reduce(function(prev,item,i,arr){
+            if(item<3){
+                prev+=item
+            }
+            return prev   //prev 为起始值，可以是任意值
+        },0)
+        console.log(sum)  //3
+        // 判断一个数组中是否包含此元素
+
+        // 两种类型间的继承
+        function first(a,b){
+            this.a = a;
+            this.b = b;
+        }
+        var proa = {
+            e:5,
+            f:6,
+        }
+        first.prototype = proa
+        function two(c,d){
+            this.c = c;
+            this.d = d;
+        }
+        var prob = {
+            g:7,
+            h:8
+        }
+        two.prototype = prob
+
+        Object.setPrototypeOf(first.prototype,two.prototype)
+        two.prototype.first = first
+        var b = new two(3,4)
+        var a = new first(1,2)
+        // a.aa = b
+        console.log(a)
+        console.log(b)
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

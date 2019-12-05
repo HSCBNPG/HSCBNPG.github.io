@@ -1866,7 +1866,7 @@
                                     （1）让Second()能调用First()的原型对象 Object.setPrototypeOf(Second.prototype,First.prototype)
                                     （2）在Second()中调用First(),如果直接调用，由于调用时First()前没有调用对象，其中的this会直接指向window，会造成属性不但不能进入Second()，还会泄露到全局，所以在Second()中使用时需要使用First.call(this,a,b)替换其中的this，即：
                                           function Second(a,b,c){
-                                              First.call(this,a,b);
+                                              First.call(this,a,b);  //call函数在执行时会调用一次此函数
                                               this.c=c};
                                 二、如何判断一个对象是不是数组。共有几种方法！
                                     答：目前一共有七种方法，分别为：
