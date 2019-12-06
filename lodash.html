@@ -24,6 +24,7 @@
 </head>
 <body>
     <div id="parent">
+        <a href="https://www.ihewro.com/project.html">这个人博客不错，改天致敬一下🤭</a>
         <!-- c01 映射-->
         <div class="card bg-light">
             <div class="car-header">
@@ -146,7 +147,7 @@
                 </div>
             </div>
         </div>
-        <!-- c07 博文-->
+        <!-- c07 博文 delete和splice删除数组中的元素的区别-->
         <div class="card bg-light">
             <div class="car-header">
                 <a href="#c07" class="card-link h5" data-toggle="collapse">delete和splice删除数组中的元素的区别</a>
@@ -165,7 +166,7 @@
                 </div>
             </div>
         </div>
-        <!-- c08 博文-->
+        <!-- c08 博文 索引数组和关联数组-->
         <div class="card bg-light">
             <div class="car-header">
                 <a href="#c08" class="card-link h5" data-toggle="collapse">索引数组和关联数组</a>
@@ -185,7 +186,7 @@
                 </div>
             </div>
         </div>
-        <!-- c09 博文-->
+        <!-- c09 博文 判断一个数组中是否包含此元素-->
         <div class="card bg-light">
             <div class="car-header">
                 <a href="#c09" class="card-link h5" data-toggle="collapse">判断一个数组中是否包含此元素</a>
@@ -199,7 +200,7 @@
                 </div>
             </div>
         </div>
-        <!-- c10 博文 -->
+        <!-- c10 博文 两种类型间的继承-->
         <div class="card bg-light">
             <div class="car-header">
                 <a href="#c10" class="card-link h5" data-toggle="collapse">两种类型间的继承</a>
@@ -209,17 +210,43 @@
                     <p>参考原文：<a href="https://blog.csdn.net/weixin_42098339/article/details/87900369">https://blog.csdn.net/weixin_42098339/article/details/87900369</a></p>
                     <p>ES5:</p>
                     <pre>
-        2)
+        1）
                     </pre>
                     <p>ES6:</p>
                     <pre>
-        1）
+        2）
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <!-- c11 博文 visibilitychange事件-->
+        <div class="card bg-light">
+            <div class="car-header">
+                <a href="#c11" class="card-link h5" data-toggle="collapse">visibilitychange事件</a>
+            </div>
+            <div class="collapse" id="c11" data-parent="#parent">
+                <div class="card-body">
+                    <p>参考原文：<a href="https://www.jianshu.com/p/e905584f8ed2">https://www.jianshu.com/p/e905584f8ed2</a></p>
+                    <p>ES5:</p>
+                    <pre>
+        1）document.hidden(只读)  //true 页面不可见  false 页面可见
                     </pre>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- 测试的js代码,需要试着写的时候可以写在这里 -->
     <script>
+        // visibilitychange
+        document.addEventListener("visibilitychange",function(){
+            var title = document.querySelector("head>[rel=icon]")
+            if (document.hidden){ 
+                title.href = "img/moon.png"
+            } else {
+                title.href = "img/star.png"
+            }
+        })
         var arr = [1,2,3]
         var arr2 = arr.map(n => n*2)
         console.log(arr2)
@@ -281,6 +308,8 @@
         console.log(a)
         console.log(b)
     </script>
+
+    <!-- 导入的jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
