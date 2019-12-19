@@ -263,6 +263,19 @@
 
     <!-- 测试的js代码,需要试着写的时候可以写在这里 -->
     <script>
+        // h5定位---谷歌地图没有位置权限
+        // function getLocation(){
+        //     if (navigator.geolocation){
+        //         console.log("获取位置")
+        //         navigator.geolocation.getCurrentPosition((position)=>{
+        //             console.log(position)
+        //         });
+        //     }
+        //     else{
+        //         console.log("Geolocation is not supported by this browser.");
+        //     }
+        // }
+        // getLocation()
         // visibilitychange
         document.addEventListener("visibilitychange",function(){
             var title = document.querySelector("head>[rel=icon]")
